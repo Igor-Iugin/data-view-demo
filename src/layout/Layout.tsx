@@ -11,7 +11,7 @@ export const Layout: FC<LayoutProps> = ({children}) => {
 	return (
 		<Grid minH={'100vh'} gridTemplateRows={'max-content 1fr'}>
 			<Header/>
-			<Container>{children}</Container>
+			<Container maxW={'90%'}>{children}</Container>
 			<Footer/>
 		</Grid>
 	)
