@@ -1,6 +1,6 @@
 import {FC} from 'react'
 
-import {Button, Center, Flex, Heading, useColorMode} from '@chakra-ui/react'
+import {Button, Center, Flex, Heading, IconButton, useColorMode} from '@chakra-ui/react'
 import {CalendarIcon, HamburgerIcon, MoonIcon, SunIcon} from '@chakra-ui/icons'
 import {UserMenu} from './UserMenu'
 
@@ -12,13 +12,19 @@ export const Header: FC<HeaderProps> = () => {
 	return (
 		<Flex as={'header'} p={4} justifyContent={'space-between'}>
 			<Center gap='4'>
-				<Button><HamburgerIcon/></Button>
+				<IconButton
+					aria-label='Меню'
+					icon={<HamburgerIcon/>}
+				/>
 				<Heading as='h1' size='md'>Система управления проектами ПСР</Heading>
 			</Center>
 			<Center gap='4'>
-				<Button variant='ghost' onClick={toggleColorMode}>
-					{colorMode === 'light' ? <MoonIcon/> : <SunIcon/>}
-				</Button>
+				<IconButton
+					variant='ghost'
+					aria-label='Изменить тему'
+					onClick={toggleColorMode}
+					icon={colorMode === 'light' ? <MoonIcon/> : <SunIcon/>}
+				/>
 				<Button variant='ghost' leftIcon={<CalendarIcon/>}>
 					Новости
 				</Button>
