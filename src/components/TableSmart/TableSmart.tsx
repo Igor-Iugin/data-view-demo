@@ -1,6 +1,6 @@
 import {FC, useState} from 'react'
 
-import {Button, ButtonProps, Center, Checkbox, Table, TableContainer, Tbody, Td, Th, Thead, Tr} from '@chakra-ui/react'
+import {Center, Checkbox, Table, TableContainer, Tbody, Td, Thead, Tr} from '@chakra-ui/react'
 
 import {TableSmartProps} from './TableSmart-props'
 import {OrgData} from '../../interfaces/table/OrgData'
@@ -15,8 +15,8 @@ import {
 	useReactTable,
 } from '@tanstack/react-table'
 import {TData} from '../../interfaces/table'
-import {TriangleDownIcon, TriangleUpIcon} from '@chakra-ui/icons'
 import {useAutoAnimate} from '@formkit/auto-animate/react'
+import {TheadRow} from './TheadRow'
 
 
 const data: OrgData[] = [
@@ -93,14 +93,6 @@ const columns = [
 	}),
 ]
 
-const TableHeader = (props: ButtonProps) => (
-	<Button
-		w='100%'
-		borderRadius='0'
-		variant='ghost'
-		{...props}
-	/>
-)
 export const TableSmart: FC<TableSmartProps> = () => {
 	const [sorting, setSorting] = useState<SortingState>([])
 	const [rowSelection, setRowSelection] = useState({})
@@ -124,42 +116,7 @@ export const TableSmart: FC<TableSmartProps> = () => {
 			<Table>
 				<Thead>
 					{table.getHeaderGroups().map(group => (
-						<Tr key={group.id}>
-							{group.headers.map(header => {
-								const getSortIcon = () => {
-									switch (header.column.getIsSorted()) {
-										case 'asc':
-											return <TriangleUpIcon/>
-										case 'desc':
-											return <TriangleDownIcon/>
-										default:
-											return undefined
-									}
-								}
-								if (header.id === 'checked')
-									return (
-										<Th key={header.id} p='0'>
-											{flexRender(
-												header.column.columnDef.header,
-												header.getContext(),
-											)}
-										</Th>
-									)
-
-								return (
-									<Th key={header.id} p='0'>
-										<TableHeader
-											rightIcon={getSortIcon()}
-											onClick={header.column.getToggleSortingHandler()}>
-											{flexRender(
-												header.column.columnDef.header,
-												header.getContext(),
-											)}
-										</TableHeader>
-									</Th>
-								)
-							})}
-						</Tr>
+						<TheadRow {...{group}}/>
 					))}
 				</Thead>
 				<Tbody ref={tbody}>
