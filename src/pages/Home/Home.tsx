@@ -1,7 +1,10 @@
 import {Layout} from '../../layout'
+import {TableSmart} from '../../components'
 
-export const Home = () => (
-	<Layout>
-
-	</Layout>
-)
+export const Home = () => {
+	return (
+		<Layout>
+			<TableSmart/>
+		</Layout>
+	)
+}
