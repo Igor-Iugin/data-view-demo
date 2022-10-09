@@ -1,6 +1,6 @@
 import {FC, useState} from 'react'
 
-import {Center, Checkbox, Table, TableContainer, Tbody, Td, Thead, Tr} from '@chakra-ui/react'
+import {Table, TableContainer, Tbody, Thead} from '@chakra-ui/react'
 
 import {TableSmartProps} from './TableSmart-props'
 import {OrgData} from '../../interfaces/table/OrgData'
@@ -8,7 +8,6 @@ import {
 	CellContext,
 	ColumnDefTemplate,
 	createColumnHelper,
-	flexRender,
 	getCoreRowModel,
 	getSortedRowModel,
 	SortingState,
@@ -17,11 +16,11 @@ import {
 import {TData} from '../../interfaces/table'
 import {useAutoAnimate} from '@formkit/auto-animate/react'
 import {TheadRow} from './TheadRow'
+import {TbodyRow} from './TbodyRow'
 
 
-const data: OrgData[] = [
+const defaultData: OrgData[] = [
 	{
-		checked: false,
 		designation: 'АО ЧМЗ',
 		name: 'АО ЧМЗ',
 		city: 'г. Глазов',
@@ -31,8 +30,25 @@ const data: OrgData[] = [
 		note: null,
 	},
 	{
-		checked: false,
 		designation: 'ФАУ ГГЭ',
+		name: 'ФАУ Главносэкспертиза',
+		city: null,
+		address: null,
+		contact: 'Манылов',
+		phone: null,
+		note: null,
+	},
+	{
+		designation: 'АААААУ ГГЭ',
+		name: 'ФАУ Главносэкспертиза',
+		city: null,
+		address: null,
+		contact: 'Манылов',
+		phone: null,
+		note: null,
+	},
+	{
+		designation: 'АААААУ ГГЭ',
 		name: 'ФАУ Главносэкспертиза',
 		city: null,
 		address: null,
@@ -44,25 +60,6 @@ const data: OrgData[] = [
 const colHelper = createColumnHelper<OrgData>()
 const getColValue: ColumnDefTemplate<CellContext<OrgData, TData<string>>> = i => i.getValue() === null ? '–' : i.getValue()
 const columns = [
-	colHelper.accessor('checked', {
-		header: ({table}) => (
-			<Center
-				as={Checkbox}
-				isChecked={table.getIsAllRowsSelected()}
-				isIndeterminate={table.getIsSomeRowsSelected()}
-				onChange={table.getToggleAllRowsSelectedHandler()}
-				h='100%'
-			/>
-		),
-		cell: ({row}) => (
-			<Center
-				as={Checkbox}
-				isChecked={row.getIsSelected()}
-				onChange={row.getToggleSelectedHandler()}
-				h='100%'
-			/>
-		),
-	}),
 	colHelper.accessor('designation', {
 		header: 'Обозначение',
 		cell: getColValue,
@@ -94,6 +91,14 @@ const columns = [
 ]
 
 export const TableSmart: FC<TableSmartProps> = () => {
+	const [tbody] = useAutoAnimate<HTMLTableSectionElement>()
+
+	const [data, setData] = useState<OrgData[]>(defaultData)
+	const reorderRow = (draggedRow: number, targetRow: number) => {
+		data.splice(targetRow, 0, data.splice(draggedRow, 1)[0] as OrgData)
+		setData([...data])
+	}
+
 	const [sorting, setSorting] = useState<SortingState>([])
 	const [rowSelection, setRowSelection] = useState({})
 	const table = useReactTable({
@@ -109,25 +114,17 @@ export const TableSmart: FC<TableSmartProps> = () => {
 		getSortedRowModel: getSortedRowModel(),
 	})
 
-	const [tbody] = useAutoAnimate<HTMLTableSectionElement>()
-
 	return (
 		<TableContainer>
 			<Table>
 				<Thead>
 					{table.getHeaderGroups().map(group => (
-						<TheadRow {...{group}}/>
+						<TheadRow key={group.id} table={table} group={group}/>
 					))}
 				</Thead>
 				<Tbody ref={tbody}>
 					{table.getRowModel().rows.map(row => (
-						<Tr key={row.id}>
-							{row.getVisibleCells().map(cell => (
-								<Td key={cell.id}>
-									{flexRender(cell.column.columnDef.cell, cell.getContext())}
-								</Td>
-							))}
-						</Tr>
+						<TbodyRow key={row.id} row={row} reorder={reorderRow}/>
 					))}
 				</Tbody>
 			</Table>

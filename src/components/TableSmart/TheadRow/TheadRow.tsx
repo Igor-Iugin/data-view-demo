@@ -1,14 +1,30 @@
 import {FC} from 'react'
 
 import {TheadRowProps} from './TheadRow-props'
-import {TriangleDownIcon, TriangleUpIcon} from '@chakra-ui/icons'
-import {Button, Th, Tr} from '@chakra-ui/react'
+import {DragHandleIcon, TriangleDownIcon, TriangleUpIcon} from '@chakra-ui/icons'
+import {Button, Center, Checkbox, IconButton, Th, Tr} from '@chakra-ui/react'
 import {flexRender} from '@tanstack/react-table'
 
 
-export const TheadRow: FC<TheadRowProps> = ({group}) => {
+export const TheadRow: FC<TheadRowProps> = ({table, group}) => {
 	return (
-		<Tr key={group.id}>
+		<Tr>
+			<Th>
+				<Center
+					as={Checkbox}
+					isChecked={table.getIsAllRowsSelected()}
+					isIndeterminate={table.getIsSomeRowsSelected()}
+					onChange={table.getToggleAllRowsSelectedHandler()}
+					h='100%'
+				/>
+			</Th>
+			<Th>
+				<IconButton
+					variant='unstyled'
+					cursor='default'
+					icon={<DragHandleIcon/>}
+					aria-label='Перенести'/>
+			</Th>
 			{group.headers.map(header => {
 				const getSortIcon = () => {
 					switch (header.column.getIsSorted()) {
