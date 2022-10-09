@@ -1,4 +1,4 @@
-import {FC} from 'react'
+import {FC, useRef} from 'react'
 
 import {SearchFields, SearchProps} from './Search-props'
 import {Flex, IconButton, Input, Select} from '@chakra-ui/react'
@@ -7,8 +7,17 @@ import {SubmitHandler, useForm} from 'react-hook-form'
 
 
 export const Search: FC<SearchProps> = ({columns, table}) => {
+	const prevColumn = useRef<string | null>(null)
 	const {register, handleSubmit} = useForm<SearchFields>()
 	const onSubmit: SubmitHandler<SearchFields> = ({column, request}) => {
+		if (prevColumn.current === 'all') {
+			table.setGlobalFilter(null)
+		}
+		if (prevColumn.current !== 'all' && prevColumn.current !== null) {
+			table.getColumn(prevColumn.current).setFilterValue(request)
+		}
+		prevColumn.current = column
+
 		if (column === 'all') {
 			return table.setGlobalFilter(request)
 		}
