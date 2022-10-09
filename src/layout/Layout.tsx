@@ -9,7 +9,7 @@ import { LayoutProps } from './Layout-props'
 
 export const Layout: FC<LayoutProps> = ({children}) => {
 	return (
-		<Grid minH={'100vh'} gridTemplateRows={'max-content 1fr'}>
+		<Grid minH={'100vh'} gap='20' gridTemplateRows={'max-content 1fr'}>
 			<Header/>
 			<Container maxW={'90%'}>{children}</Container>
 			<Footer/>

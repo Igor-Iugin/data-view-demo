@@ -1,7 +1,7 @@
 import {FC} from 'react'
 
 import {TbodyRowProps} from './TbodyRow-props'
-import {Center, Checkbox, IconButton, Td, Tr} from '@chakra-ui/react'
+import {Checkbox, IconButton, Td, Tr} from '@chakra-ui/react'
 import {flexRender, Row} from '@tanstack/react-table'
 import {useDrag, useDrop} from 'react-dnd'
 import {DragHandleIcon} from '@chakra-ui/icons'
@@ -18,17 +18,20 @@ export const TbodyRow: FC<TbodyRowProps> = ({row, reorder}) => {
 	})
 	return (
 		<Tr ref={bodyRef}>
-			<Td>
-				<Center
-					as={Checkbox}
+			<Td p='0' w='60px'>
+				<Checkbox
 					isChecked={row.getIsSelected()}
 					onChange={row.getToggleSelectedHandler()}
-					h='100%'
+					justifyContent='center'
+					h='53px'
+					w='100%'
 				/>
 			</Td>
-			<Td ref={dropRef}>
+			<Td ref={dropRef} p='0' h='53px'>
 				<IconButton
 					cursor='grab'
+					display='flex'
+					m='0 auto'
 					ref={dragRef}
 					icon={<DragHandleIcon/>}
 					aria-label='Перенести'/>

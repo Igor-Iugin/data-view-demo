@@ -115,7 +115,7 @@ export const TableSmart: FC<TableSmartProps> = () => {
 		getSortedRowModel: getSortedRowModel(),
 	})
 	return (
-		<TableContainer>
+		<TableContainer display='grid' gap='6'>
 			{/*@ts-ignore*/}
 			<Controls {...{columns}}/>
 			<Table>
