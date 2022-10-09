@@ -6,10 +6,10 @@ import {Search} from './Search'
 import {ChevronDownIcon} from '@chakra-ui/icons'
 
 
-export const Controls: FC<ControlsProps> = ({columns}) => {
+export const Controls: FC<ControlsProps> = ({columns, table}) => {
 	return (
 		<Stack spacing={3} direction='row'>
-			<Search columns={columns}/>
+			<Search {...{columns, table}}/>
 			<Menu>
 				<MenuButton as={Button} rightIcon={<ChevronDownIcon/>}>
 					Действия

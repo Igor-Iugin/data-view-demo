@@ -1,4 +1,4 @@
-import {FC, useState} from 'react'
+import {FC, useMemo, useState} from 'react'
 
 import {Table, TableContainer, Tbody, Thead} from '@chakra-ui/react'
 
@@ -7,19 +7,30 @@ import {OrgData} from '../../interfaces/table/OrgData'
 import {
 	CellContext,
 	ColumnDefTemplate,
+	ColumnFiltersState,
 	createColumnHelper,
+	FilterFn,
 	getCoreRowModel,
+	getFacetedMinMaxValues,
+	getFacetedRowModel,
+	getFacetedUniqueValues,
+	getFilteredRowModel,
+	getPaginationRowModel,
 	getSortedRowModel,
-	SortingState,
 	useReactTable,
 } from '@tanstack/react-table'
+import {rankItem} from '@tanstack/match-sorter-utils'
 import {TData} from '../../interfaces/table'
 import {useAutoAnimate} from '@formkit/auto-animate/react'
 import {TheadRow} from './TheadRow'
 import {TbodyRow} from './TbodyRow'
 import {Controls} from './Controls'
 
-
+const fuzzyFilterFunc: FilterFn<any> = (row, columnId, value, addMeta) => {
+	const itemRank = rankItem(row.getValue(columnId), value)
+	addMeta({itemRank})
+	return itemRank.passed
+}
 const defaultData: OrgData[] = [
 	{
 		designation: 'АО ЧМЗ',
@@ -100,24 +111,39 @@ export const TableSmart: FC<TableSmartProps> = () => {
 		setData([...data])
 	}
 
-	const [sorting, setSorting] = useState<SortingState>([])
+	const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
+	const [globalFilter, setGlobalFilter] = useState('')
 	const [rowSelection, setRowSelection] = useState({})
+	const fuzzyFilter = useMemo(() => fuzzyFilterFunc, [])
+
 	const table = useReactTable({
 		data,
 		columns,
+		filterFns: {
+			fuzzy: fuzzyFilter,
+		},
 		state: {
-			sorting,
+			columnFilters,
+			globalFilter,
 			rowSelection,
 		},
+		onColumnFiltersChange: setColumnFilters,
+		onGlobalFilterChange: setGlobalFilter,
 		onRowSelectionChange: setRowSelection,
-		onSortingChange: setSorting,
+		globalFilterFn: fuzzyFilter,
 		getCoreRowModel: getCoreRowModel(),
+		getFilteredRowModel: getFilteredRowModel(),
 		getSortedRowModel: getSortedRowModel(),
+		getPaginationRowModel: getPaginationRowModel(),
+		getFacetedRowModel: getFacetedRowModel(),
+		getFacetedUniqueValues: getFacetedUniqueValues(),
+		getFacetedMinMaxValues: getFacetedMinMaxValues(),
 	})
+
 	return (
 		<TableContainer display='grid' gap='6'>
 			{/*@ts-ignore*/}
-			<Controls {...{columns}}/>
+			<Controls {...{columns, table}}/>
 			<Table>
 				<Thead>
 					{table.getHeaderGroups().map(group => (
