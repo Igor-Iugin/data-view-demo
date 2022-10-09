@@ -17,6 +17,7 @@ import {TData} from '../../interfaces/table'
 import {useAutoAnimate} from '@formkit/auto-animate/react'
 import {TheadRow} from './TheadRow'
 import {TbodyRow} from './TbodyRow'
+import {Controls} from './Controls'
 
 
 const defaultData: OrgData[] = [
@@ -113,9 +114,10 @@ export const TableSmart: FC<TableSmartProps> = () => {
 		getCoreRowModel: getCoreRowModel(),
 		getSortedRowModel: getSortedRowModel(),
 	})
-
 	return (
 		<TableContainer>
+			{/*@ts-ignore*/}
+			<Controls {...{columns}}/>
 			<Table>
 				<Thead>
 					{table.getHeaderGroups().map(group => (
