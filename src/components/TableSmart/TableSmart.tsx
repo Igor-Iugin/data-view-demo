@@ -26,6 +26,7 @@ import {TheadRow} from './TheadRow'
 import {TbodyRow} from './TbodyRow'
 import {Controls} from './Controls'
 
+
 const fuzzyFilterFunc: FilterFn<any> = (row, columnId, value, addMeta) => {
 	const itemRank = rankItem(row.getValue(columnId), value)
 	addMeta({itemRank})
@@ -105,17 +106,20 @@ const columns = [
 export const TableSmart: FC<TableSmartProps> = () => {
 	const [tbody] = useAutoAnimate<HTMLTableSectionElement>()
 
+	/* Handle table data */
 	const [data, setData] = useState<OrgData[]>(defaultData)
 	const reorderRow = (draggedRow: number, targetRow: number) => {
 		data.splice(targetRow, 0, data.splice(draggedRow, 1)[0] as OrgData)
 		setData([...data])
 	}
 
+	/* Filters */
 	const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
 	const [globalFilter, setGlobalFilter] = useState('')
 	const [rowSelection, setRowSelection] = useState({})
 	const fuzzyFilter = useMemo(() => fuzzyFilterFunc, [])
 
+	/* Initialization table */
 	const table = useReactTable({
 		data,
 		columns,

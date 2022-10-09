@@ -10,6 +10,7 @@ export const Search: FC<SearchProps> = ({columns, table}) => {
 	const prevColumn = useRef<string | null>(null)
 	const {register, handleSubmit} = useForm<SearchFields>()
 	const onSubmit: SubmitHandler<SearchFields> = ({column, request}) => {
+		/* Fix removing rows after change column for search */
 		if (prevColumn.current === 'all') {
 			table.setGlobalFilter(null)
 		}
@@ -18,6 +19,7 @@ export const Search: FC<SearchProps> = ({columns, table}) => {
 		}
 		prevColumn.current = column
 
+		/* Using sort type */
 		if (column === 'all') {
 			return table.setGlobalFilter(request)
 		}
