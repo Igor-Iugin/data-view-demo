@@ -1,10 +1,10 @@
-import {HTMLAttributes} from 'react'
+import {Dispatch, HTMLAttributes} from 'react'
 import {Table} from '@tanstack/react-table'
+import {TableColumn} from '../TableSmart-props'
 
 export interface ControlsProps extends HTMLAttributes<HTMLDivElement> {
-	columns: {
-		header: string
-		accessorKey: string
-	}[]
+	columns: TableColumn[]
 	table: Table<any>
+	setData: Dispatch<any>
+	data: any[]
 }

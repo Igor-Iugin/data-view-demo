@@ -1,5 +1,6 @@
 import {HTMLAttributes} from 'react'
 import {Table} from '@tanstack/react-table'
+import {TableColumn} from '../../TableSmart-props'
 
 
 export interface SearchFields {
@@ -8,9 +9,6 @@ export interface SearchFields {
 }
 
 export interface SearchProps extends HTMLAttributes<HTMLDivElement> {
-	columns: {
-		header: string
-		accessorKey: string
-	}[]
+	columns: TableColumn[]
 	table: Table<any>
 }

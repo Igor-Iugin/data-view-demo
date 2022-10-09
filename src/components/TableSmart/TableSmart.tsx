@@ -147,7 +147,7 @@ export const TableSmart: FC<TableSmartProps> = () => {
 	return (
 		<TableContainer display='grid' gap='6'>
 			{/*@ts-ignore*/}
-			<Controls {...{columns, table}}/>
+			<Controls {...{columns, table, setData, data}}/>
 			<Table>
 				<Thead>
 					{table.getHeaderGroups().map(group => (
