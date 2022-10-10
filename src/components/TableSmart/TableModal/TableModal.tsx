@@ -35,13 +35,13 @@ export const TableModal: FC<TableModalProps> = ({isOpen, onClose, columns, table
 	}
 
 	return (
-		<Modal isOpen={isOpen} onClose={onClose}>
+		<Modal isOpen={isOpen} onClose={onClose} isCentered size='xl'>
 			<ModalOverlay/>
 			<ModalContent>
 				<ModalHeader>Добавить запись</ModalHeader>
 				<ModalCloseButton/>
 				<form onSubmit={handleSubmit(onSubmit)}>
-					<ModalBody display='grid' gap='5'>
+					<ModalBody display='grid' gridTemplateColumns='1fr 1fr' gap='5'>
 						{columns.map(column => (
 							<FormControl key={column.accessorKey} id={column.accessorKey}>
 								<FormLabel>{column.header}</FormLabel>

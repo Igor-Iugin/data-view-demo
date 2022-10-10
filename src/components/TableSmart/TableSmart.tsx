@@ -145,7 +145,7 @@ export const TableSmart: FC<TableSmartProps> = () => {
 	})
 
 	return (
-		<TableContainer display='grid' gap='6'>
+		<TableContainer display='grid' gap='6' paddingY='2'>
 			{/*@ts-ignore*/}
 			<Controls {...{columns, table, setData, data}}/>
 			<Table>
