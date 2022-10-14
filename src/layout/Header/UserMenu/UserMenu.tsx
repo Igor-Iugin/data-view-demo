@@ -4,21 +4,26 @@ import {Avatar, Button, Menu, MenuButton, MenuItem, MenuList} from '@chakra-ui/r
 
 import {UserMenuProps} from './UserMenu-props'
 import {ChevronDownIcon} from '@chakra-ui/icons'
+import {useAuth} from '../../../Auth'
+import {useNavigate} from 'react-router'
 
 
 export const UserMenu: FC<UserMenuProps> = () => {
+	const {user, signout} = useAuth()
+	const navigate = useNavigate()
+	const handleLogOut = () => signout(() => navigate('/login'))
+
 	return (
 		<Menu>
 			<MenuButton
 				as={Button}
-				leftIcon={<Avatar size='xs' name='user1242'/>}
+				leftIcon={<Avatar size='xs' name={user?.userName}/>}
 				rightIcon={<ChevronDownIcon />}
 			>
-				user1242
+				{user?.userName}
 			</MenuButton>
 			<MenuList>
-				<MenuItem>Настройки</MenuItem>
-				<MenuItem>Выход</MenuItem>
+				<MenuItem onClick={handleLogOut}>Выход</MenuItem>
 			</MenuList>
 		</Menu>
 	)
