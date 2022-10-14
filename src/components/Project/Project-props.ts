@@ -1,4 +1,5 @@
-import {HTMLAttributes} from 'react'
+import {IProject} from '../../mocks/mockProjects'
 
-export interface ProjectProps extends HTMLAttributes<HTMLDivElement> {
+export interface ProjectProps {
+	data: IProject
 }

@@ -1,3 +1,5 @@
+import {Task} from 'gantt-task-react'
+
 export type ProjectStatuses = 'В работе' | 'Подготовка' | 'Не в работе' | 'Отменён' | 'Выполнен' | 'Согласование'
 
 export interface IPlannedEffect {
@@ -10,11 +12,6 @@ export interface IPlannedEffect {
 export interface IEventDate {
 	from: Date
 	to: Date
-}
-
-export interface IProjectEvent {
-	name: string
-	date: IEventDate
 }
 
 export interface IProject {
@@ -30,7 +27,7 @@ export interface IProject {
 	company: string
 	justification: string
 	conditions: string
-	events: IProjectEvent[]
+	tasks: Task[]
 	goals: string
 	subprojects: IProject[]
 }
@@ -70,22 +67,38 @@ export const mockProjects: IMockProject[] = [
 				justification: 'Длительные сроки получения услуг, низкое качество и информированность населения',
 
 				// Ключевые события
-				events: [
+				tasks: [
 					{
+						id: '1',
 						name: 'Открытие и подготовка ПСР-проекта',
-						date: {from: new Date('2021-12-01'), to: new Date('2021-12-24')}
+						start: new Date('2021-12-01'),
+						end: new Date('2021-12-24'),
+						type: 'task',
+						progress: 100
 					},
 					{
+						id: '2',
 						name: 'Диагностика и целевое состояние',
-						date: {from: new Date('2022-01-10'), to: new Date('2022-03-21')}
+						start: new Date('2022-01-10'),
+						end: new Date('2022-03-21'),
+						type: 'task',
+						progress: 80
 					},
 					{
+						id: '3',
 						name: 'Внедрение улучшений',
-						date: {from: new Date('2022-03-21'), to: new Date('2022-12-19')}
+						start: new Date('2022-03-21'),
+						end: new Date('2022-12-19'),
+						type: 'task',
+						progress: 60
 					},
 					{
+						id: '4',
 						name: 'Закрепление результатов и закрытие проекта',
-						date: {from: new Date('2022-12-19'), to: new Date('2022-12-30')}
+						start: new Date('2022-12-19'),
+						end: new Date('2022-12-30'),
+						type: 'task',
+						progress: 30
 					},
 				],
 
@@ -93,10 +106,8 @@ export const mockProjects: IMockProject[] = [
 			}
 		]
 	},
-	{
-		name: 'ЦОИ',
-		projects: []
-	}
+	// {
+	// 	name: 'ЦОИ',
+	// 	projects: []
+	// }
 ]
-
-export const mockProjectsData = []
