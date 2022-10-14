@@ -3,28 +3,29 @@ import {createContext, ReactNode, useContext, useState} from 'react'
 import {IAuthContext} from './Auth-props'
 import {fakeAuthProvider} from './utils/fakeAuthProvider'
 import {Navigate, useLocation} from 'react-router'
+import {IUser} from '../interfaces/IUser'
 
 
-let AuthContext = createContext<IAuthContext>(null!)
+const AuthContext = createContext<IAuthContext>(null!)
 
 export const AuthProvider = ({children}: { children: ReactNode }) => {
-	let [user, setUser] = useState<any>(null)
+	const [user, setUser] = useState<IUser | null>(null)
 
-	let signin = (newUser: string, callback: VoidFunction) => {
+	const signin = (newUser: IUser, callback: VoidFunction) => {
 		return fakeAuthProvider.signin(() => {
 			setUser(newUser)
 			callback()
 		})
 	}
 
-	let signout = (callback: VoidFunction) => {
+	const signout = (callback: VoidFunction) => {
 		return fakeAuthProvider.signout(() => {
 			setUser(null)
 			callback()
 		})
 	}
 
-	let value = {user, signin, signout}
+	const value = {user, signin, signout}
 
 	return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
 }
@@ -34,8 +35,8 @@ export const useAuth = () => {
 }
 
 export function RequireAuth({children}: { children: JSX.Element }) {
-	let auth = useAuth()
-	let location = useLocation()
+	const auth = useAuth()
+	const location = useLocation()
 
 	if (!auth.user) {
 		// Redirect them to the /login page, but save the current location they were

@@ -1,5 +1,7 @@
+import {IUser} from '../interfaces/IUser'
+
 export interface IAuthContext {
-	user: any;
-	signin: (user: string, callback: VoidFunction) => void;
-	signout: (callback: VoidFunction) => void;
+	user: IUser | null
+	signin: (user: IUser, callback: VoidFunction) => void
+	signout: (callback: VoidFunction) => void
 }
