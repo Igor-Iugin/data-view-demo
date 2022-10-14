@@ -12,7 +12,7 @@ export const Layout: FC<LayoutProps> = () => {
 	return (
 		<Grid minH={'100vh'} gap='20' gridTemplateRows={'max-content 1fr'}>
 			<Header/>
-			<Container maxW={'90%'}><Outlet/></Container>
+			<Container as='main' maxW='90vw'><Outlet/></Container>
 			<Footer/>
 		</Grid>
 	)

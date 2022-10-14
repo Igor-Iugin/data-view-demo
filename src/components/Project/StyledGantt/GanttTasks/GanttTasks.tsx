@@ -1,0 +1,28 @@
+import {FC} from 'react'
+
+import {GanttTasksProps} from './GanttTasks-props'
+import {Flex, Grid, useColorMode} from '@chakra-ui/react'
+
+
+export const GanttTasks: FC<GanttTasksProps> = ({tasks, rowHeight}) => {
+	const {colorMode} = useColorMode()
+	const bdColor = colorMode === 'light' ? 'blackAlpha.100' : 'whiteAlpha.300'
+	return (
+		<Grid>
+			{tasks.map((task, index) => (
+				<Flex
+					h={rowHeight}
+					w='300px'
+					alignItems='center'
+					border='1px solid'
+					borderColor={bdColor}
+					borderBottomLeftRadius={index === tasks.length - 1 ? 'md' : ''}
+					p={2}
+					key={`task${task.id}`}
+				>
+					{task.name}
+				</Flex>
+			))}
+		</Grid>
+	)
+}
