@@ -4,7 +4,7 @@ import {ProjectProps} from './Project-props'
 import {Flex, useColorMode, useDisclosure} from '@chakra-ui/react'
 import {IProject} from '../../mocks/mockProjects'
 import {PHeader} from './PHeader'
-import {StyledGantt} from './StyledGantt'
+import {StyledGantt} from '../'
 import {PModal} from './PModal'
 import {Task} from 'gantt-task-react'
 

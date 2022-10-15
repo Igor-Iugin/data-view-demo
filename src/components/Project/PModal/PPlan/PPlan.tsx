@@ -1,7 +1,7 @@
 import {FC} from 'react'
 
 import {PPlanProps} from './PPlan-props'
-import {StyledGantt} from '../../StyledGantt'
+import {StyledGantt} from '../../../'
 import {useProject} from '../../Project'
 import {Task, ViewMode} from 'gantt-task-react'
 
