@@ -90,7 +90,8 @@ export const mockProjects: IMockProject[] = [
 						start: new Date('2022-03-21'),
 						end: new Date('2022-12-19'),
 						type: 'task',
-						progress: 60
+						progress: 60,
+						dependencies: ['2']
 					},
 					{
 						id: '4',
