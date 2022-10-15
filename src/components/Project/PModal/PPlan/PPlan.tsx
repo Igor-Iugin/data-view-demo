@@ -4,6 +4,7 @@ import {PPlanProps} from './PPlan-props'
 import {StyledGantt} from '../../../'
 import {useProject} from '../../Project'
 import {Task, ViewMode} from 'gantt-task-react'
+import {Center} from '@chakra-ui/react'
 
 
 function getStartEndDateForProject(tasks: Task[], projectId: string) {
@@ -60,13 +61,15 @@ export const PPlan: FC<PPlanProps> = () => {
 	}
 
 	return (
-		<StyledGantt
-			tasks={tasks}
-			viewMode={ViewMode.Month}
-			onDateChange={handleTaskChange}
-			onDelete={handleTaskDelete}
-			onProgressChange={handleProgressChange}
-			onExpanderClick={handleExpanderClick}
-		/>
+		<Center>
+			<StyledGantt
+				tasks={tasks}
+				viewMode={ViewMode.Month}
+				onDateChange={handleTaskChange}
+				onDelete={handleTaskDelete}
+				onProgressChange={handleProgressChange}
+				onExpanderClick={handleExpanderClick}
+			/>
+		</Center>
 	)
 }
