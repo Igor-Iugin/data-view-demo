@@ -1,28 +1,51 @@
 import {FC, useMemo} from 'react'
 
-import {PCardProps} from './PCard-props'
+import {InfoStructure, PCardProps} from './PCard-props'
 import {Flex, Grid, Heading, SimpleGrid, Stack, Tag, Text} from '@chakra-ui/react'
 import {useProject} from '../../Project'
 
 
-const InfoSection = ({title, info}: { title: string, info: string }) => (
-	<Stack direction='column'>
-		<Heading as='h3' fontSize='lg'>{title}</Heading>
-		<Text pl={4}>{info}</Text>
-	</Stack>
-)
+const InfoSection: FC<InfoStructure> = ({title, info, type}) => {
+	const Content = () => {
+		switch (type) {
+			case 'array':
+				return (
+					<Stack>
+						{info.map(item => <Tag>{item}</Tag>)}
+					</Stack>
+				)
+			case 'condition':
+				return (
+					<Grid gap={2}>
+						<p><Tag size='sm'>С</Tag> {info.from}</p>
+						<p><Tag>ДО</Tag> {info.to}</p>
+					</Grid>
+				)
+			case 'text':
+				return (
+					<Text pl={4}>{info}</Text>
+				)
+		}
+	}
+	return (
+		<Stack direction='column'>
+			<Heading as='h3' fontSize='lg'>{title}</Heading>
+			<Content/>
+		</Stack>
+	)
+}
 
 const Info = () => {
 	const {company, client, zone, conditions, director, methodologyOwner, owner, team} = useProject()
-	const structure: Record<string, string>[] = useMemo(() => [
-		{title: 'Предприятие', info: company},
-		{title: 'Заказчик', info: client},
-		{title: 'Периметр', info: zone},
-		{title: 'Рамки', info: conditions},
-		{title: 'Руководитель', info: director},
-		{title: 'Методолог', info: methodologyOwner},
-		{title: 'Владелец процесса', info: owner},
-		{title: 'Команда', info: team},
+	const structure: InfoStructure[] = useMemo(() => [
+		{title: 'Предприятие', info: company, type: 'text'},
+		{title: 'Заказчик', info: client, type: 'text'},
+		{title: 'Периметр', info: zone, type: 'array'},
+		{title: 'Рамки', info: conditions, type: 'condition'},
+		{title: 'Руководитель', info: director, type: 'array'},
+		{title: 'Методолог', info: methodologyOwner, type: 'array'},
+		{title: 'Владелец процесса', info: owner, type: 'array'},
+		{title: 'Команда', info: team, type: 'array'},
 	], [client, company, conditions, director, methodologyOwner, owner, team, zone])
 
 	return (
@@ -30,8 +53,8 @@ const Info = () => {
 			<Heading fontSize='2xl'>Общая информация</Heading>
 
 			<Stack direction='column' spacing={4}>
-				{structure.map(({title, info}) => (
-					<InfoSection key={title} title={title} info={info}/>
+				{structure.map(item => (
+					<InfoSection key={item.title} {...item}/>
 				))}
 			</Stack>
 		</Stack>
@@ -42,10 +65,10 @@ export const PCard: FC<PCardProps> = () => {
 	const {goals, justification, tasks} = useProject()
 	return (
 		<SimpleGrid as='section' columns={2}>
-			<Stack direction='column' spacing={4}>
+			<Stack spacing={4}>
 				<Stack>
 					<Heading fontSize='2xl'>Обоснование выбора</Heading>
-					<Text pl={4}>{justification}</Text>
+					{justification.map(item => <Text pl={4}>{item}</Text>)}
 				</Stack>
 
 				<Stack>

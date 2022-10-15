@@ -1,7 +1,7 @@
 import {createContext, Dispatch, FC, SetStateAction, useContext, useState} from 'react'
 
 import {ProjectProps} from './Project-props'
-import {Flex, useDisclosure} from '@chakra-ui/react'
+import {Flex, useColorMode, useDisclosure} from '@chakra-ui/react'
 import {IProject} from '../../mocks/mockProjects'
 import {PHeader} from './PHeader'
 import {StyledGantt} from './StyledGantt'
@@ -17,9 +17,11 @@ const ProjectContext = createContext<IProject & {
 export const Project: FC<ProjectProps> = ({data}) => {
 	const [tasks, setTasks] = useState<Task[]>(data.tasks)
 	const {isOpen, onOpen, onClose} = useDisclosure()
+	const {colorMode} = useColorMode()
+	const bdColor = colorMode === 'light' ? 'blackAlpha.100' : 'whiteAlpha.300'
 	return (
 		<ProjectContext.Provider value={{...data, tasks, setTasks, onOpen}}>
-			<Flex flexDir='column' gap={6}>
+			<Flex flexDir='column' gap={6} border='1px solid' borderColor={bdColor} borderRadius='md' px={5} py={5}>
 				<PHeader/>
 				<StyledGantt tasks={tasks}/>
 			</Flex>

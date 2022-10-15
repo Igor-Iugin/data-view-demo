@@ -34,12 +34,14 @@ const timeStepCalc = (timeStep: Omit<ViewMode, 'QuarterDay' | 'HalfDay'>) => {
 export const StyledGantt: FC<StyledGanttProps> = ({tasks, viewMode = ViewMode.Month, timeStep, ...props}) => {
 	const columnWidth = () => {
 		switch (viewMode) {
+			case ViewMode.Day:
+				return 45
 			case ViewMode.Month:
 				return 100
 			case ViewMode.Year:
 				return 200
 			default:
-				return 65
+				return 45
 		}
 	}
 

@@ -3,7 +3,7 @@ import {FC} from 'react'
 import {PPlanProps} from './PPlan-props'
 import {StyledGantt} from '../../StyledGantt'
 import {useProject} from '../../Project'
-import {Task} from 'gantt-task-react'
+import {Task, ViewMode} from 'gantt-task-react'
 
 
 function getStartEndDateForProject(tasks: Task[], projectId: string) {
@@ -62,6 +62,7 @@ export const PPlan: FC<PPlanProps> = () => {
 	return (
 		<StyledGantt
 			tasks={tasks}
+			viewMode={ViewMode.Month}
 			onDateChange={handleTaskChange}
 			onDelete={handleTaskDelete}
 			onProgressChange={handleProgressChange}

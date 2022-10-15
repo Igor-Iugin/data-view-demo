@@ -1,4 +1,4 @@
-import {Flex, Grid, Heading, HStack, IconButton, Tag, TagLabel, TagLeftIcon, Tooltip} from '@chakra-ui/react'
+import {Flex, Grid, Heading, HStack, IconButton, Stack, Tag, TagLabel, TagLeftIcon, Tooltip} from '@chakra-ui/react'
 import {MdApartment, MdBusinessCenter} from 'react-icons/md'
 import {BiCodeAlt} from 'react-icons/bi'
 import {useProject} from '../Project'
@@ -20,7 +20,7 @@ export const PHeader = () => {
 				</HStack>
 				<Tag variant='outline' colorScheme='cyan' borderRadius='full' w='max-content'>{status}</Tag>
 			</Grid>
-			<HStack>
+			<HStack alignItems='start'>
 				<Tooltip label='Заказчик'>
 					<Tag>
 						<TagLeftIcon as={MdBusinessCenter}/>
@@ -35,12 +35,16 @@ export const PHeader = () => {
 					</Tag>
 				</Tooltip>
 
-				<Tooltip label='Методолог'>
-					<Tag>
-						<TagLeftIcon as={BiCodeAlt}/>
-						<TagLabel>{methodologyOwner}</TagLabel>
-					</Tag>
-				</Tooltip>
+				<Stack>
+					{methodologyOwner.map(name => (
+						<Tooltip label='Методолог'>
+							<Tag>
+								<TagLeftIcon as={BiCodeAlt}/>
+								<TagLabel>{name}</TagLabel>
+							</Tag>
+						</Tooltip>
+					))}
+				</Stack>
 			</HStack>
 		</Flex>
 	)
