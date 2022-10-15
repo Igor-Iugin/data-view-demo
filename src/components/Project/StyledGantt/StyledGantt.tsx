@@ -1,4 +1,4 @@
-import {FC, useState} from 'react'
+import {FC} from 'react'
 
 import {StyledGanttProps} from './StyledGantt-props'
 import {Gantt, ViewMode} from 'gantt-task-react'
@@ -8,12 +8,9 @@ import {GanttTasks} from './GanttTasks'
 import {GanttTooltip} from './GanttTooltip'
 
 
-export const StyledGantt: FC<StyledGanttProps> = ({tasks}) => {
-	const [isChecked, setIsChecked] = useState(true)
-
-	const [view, setView] = useState<ViewMode>(ViewMode.Month)
+export const StyledGantt: FC<StyledGanttProps> = ({tasks, viewMode = ViewMode.Month, ...props}) => {
 	const columnWidth = () => {
-		switch (view) {
+		switch (viewMode) {
 			case ViewMode.Month:
 				return 100
 			case ViewMode.Year:
@@ -25,7 +22,7 @@ export const StyledGantt: FC<StyledGanttProps> = ({tasks}) => {
 	return (
 		<Gantt
 			tasks={tasks}
-			viewMode={view}
+			viewMode={viewMode}
 			columnWidth={columnWidth()}
 			listCellWidth={'100px'}
 			fontFamily='inherit'
@@ -33,6 +30,7 @@ export const StyledGantt: FC<StyledGanttProps> = ({tasks}) => {
 			TaskListHeader={props => <GanttHeader {...props}/>}
 			TaskListTable={props => <GanttTasks {...props}/>}
 			TooltipContent={props => <GanttTooltip {...props}/>}
+			{...props}
 		/>
 	)
 }
