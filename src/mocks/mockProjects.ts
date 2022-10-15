@@ -11,7 +11,8 @@ export interface IPlannedEffect {
 	name: string
 	units: string
 	aimedValue: number
-	initialValue: number
+	initialValue: number,
+	data: {x: Date, y: number}[]
 }
 
 export interface ICondition {
@@ -21,7 +22,7 @@ export interface ICondition {
 
 export interface IProject {
 	owner: string[]
-	plannedEffect: IPlannedEffect[]
+	plannedEffect: IPlannedEffect
 	status: ProjectStatuses
 	director: string[]
 	team: string[]
@@ -68,12 +69,13 @@ export const mockProjects: IMockProject[] = [
 
 				// Цели и плановый эффект
 				goals: 'сокращение сроков получения услуг',
-				plannedEffect: [{
+				plannedEffect: {
 					name: 'Время, затраченное на предоставление услуги',
 					units: 'дни',
 					initialValue: 35,
-					aimedValue: 17
-				}],
+					aimedValue: 17,
+					data: []
+				},
 
 				// Обоснование выбора
 				justification: [
@@ -157,12 +159,23 @@ export const mockProjects: IMockProject[] = [
 				],
 
 				goals: '',
-				plannedEffect: [{
+				plannedEffect: {
 					name: 'Доля рецептов выписанных с использованием РСЛО',
 					units: '%',
 					initialValue: 2,
-					aimedValue: 40
-				}],
+					aimedValue: 40,
+					data: [
+						{x: new Date('2022-01-27'), y: 2},
+						{x: new Date('2022-02-14'), y: 8},
+						{x: new Date('2022-02-27'), y: 5},
+						{x: new Date('2022-03-6'), y: 22},
+						{x: new Date('2022-03-30'), y: 28},
+						{x: new Date('2022-04-15'), y: 25},
+						{x: new Date('2022-05-01'), y: 30},
+						{x: new Date('2022-05-15'), y: 35},
+						{x: new Date('2022-05-31'), y: 40},
+					]
+				},
 
 				justification: [
 					'Потеря бум. бланка',
