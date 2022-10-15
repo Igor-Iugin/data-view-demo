@@ -10,4 +10,5 @@ export interface GanttTasksProps extends HTMLAttributes<HTMLDivElement> {
 	tasks: Task[]
 	selectedTaskId: string
 	setSelectedTask: (taskId: string) => void
+	onExpanderClick: (task: Task) => void
 }
