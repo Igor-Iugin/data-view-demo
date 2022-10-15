@@ -2,6 +2,7 @@ import {FC} from 'react'
 
 import {PModalProps} from './PModal-props'
 import {
+	Flex, Kbd,
 	Modal,
 	ModalBody,
 	ModalCloseButton,
@@ -16,6 +17,7 @@ import {useProject} from '../Project'
 import {PCard} from './PCard'
 import {PPlan} from './PPlan'
 import {PKPI} from './PKPI'
+import {CloseIcon} from '@chakra-ui/icons'
 
 
 export const PModal: FC<PModalProps> = (props) => {
@@ -23,7 +25,10 @@ export const PModal: FC<PModalProps> = (props) => {
 	return (
 		<Modal size='full' {...props}>
 			<ModalContent>
-				<ModalCloseButton/>
+				<Flex as={ModalCloseButton} gap={4} justifyContent='end'>
+					<span><Kbd>Esc</Kbd></span>
+					<CloseIcon mr='10px'/>
+				</Flex>
 				<ModalHeader>{name}</ModalHeader>
 
 				<ModalBody>
