@@ -8,7 +8,30 @@ import {GanttTasks} from './GanttTasks'
 import {GanttTooltip} from './GanttTooltip'
 
 
-export const StyledGantt: FC<StyledGanttProps> = ({tasks, viewMode = ViewMode.Month, ...props}) => {
+const timeStepCalc = (timeStep: Omit<ViewMode, 'QuarterDay' | 'HalfDay'>) => {
+	const hour = 1000 * 60 * 60
+	const day = hour * 24
+	const week = day * 7
+	const month = week * 30
+	const year = month * 12
+
+	switch (timeStep) {
+		case ViewMode.Hour:
+			return hour
+		case ViewMode.Day:
+			return day
+		case ViewMode.Week:
+			return week
+		case ViewMode.Month:
+			return month
+		case ViewMode.Year:
+			return year
+		default:
+			return hour
+	}
+}
+
+export const StyledGantt: FC<StyledGanttProps> = ({tasks, viewMode = ViewMode.Month, timeStep, ...props}) => {
 	const columnWidth = () => {
 		switch (viewMode) {
 			case ViewMode.Month:
@@ -19,6 +42,7 @@ export const StyledGantt: FC<StyledGanttProps> = ({tasks, viewMode = ViewMode.Mo
 				return 65
 		}
 	}
+
 	return (
 		<Gantt
 			tasks={tasks}
@@ -27,6 +51,8 @@ export const StyledGantt: FC<StyledGanttProps> = ({tasks, viewMode = ViewMode.Mo
 			listCellWidth={'100px'}
 			fontFamily='inherit'
 			locale='ru-RU'
+			todayColor='rgba(0,0,0, .15)'
+			timeStep={timeStep ? timeStepCalc(timeStep) : timeStepCalc(ViewMode.Day)}
 			TaskListHeader={props => <GanttHeader {...props}/>}
 			TaskListTable={props => <GanttTasks {...props}/>}
 			TooltipContent={props => <GanttTooltip {...props}/>}

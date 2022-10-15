@@ -1,4 +1,4 @@
-import {GanttProps, Task} from 'gantt-task-react'
+import {GanttProps, Task, ViewMode} from 'gantt-task-react'
 
 export interface StyledGanttProps extends Omit<GanttProps, 'columnWidth'
 	| 'listCellWidth'
@@ -6,6 +6,8 @@ export interface StyledGanttProps extends Omit<GanttProps, 'columnWidth'
 	| 'locale'
 	| 'TaskListHeader'
 	| 'TooltipContent'
-	| 'TaskListTable'> {
+	| 'TaskListTable'
+	| 'timeStep'> {
 	tasks: Task[]
+	timeStep?: Omit<ViewMode, 'QuarterDay' | 'HalfDay'>
 }
