@@ -1,7 +1,7 @@
 import {FC, useMemo, useState} from 'react'
 
 import {DashboardProps} from './Dashboard-props'
-import {Tab, TabList, TabPanel, TabPanels, Tabs, useColorMode, useTheme} from '@chakra-ui/react'
+import {Tab, TabList, TabPanel, TabPanels, Tabs, useColorMode} from '@chakra-ui/react'
 import {Project} from '../../components'
 import {mockProjects} from '../../mocks/mockProjects'
 
