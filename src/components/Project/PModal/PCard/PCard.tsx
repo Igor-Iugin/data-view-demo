@@ -42,7 +42,7 @@ export const PCard: FC<PCardProps> = () => {
 	const {goals, justification, tasks} = useProject()
 	return (
 		<SimpleGrid as='section' columns={2}>
-			<Stack direction='column'>
+			<Stack direction='column' spacing={4}>
 				<Stack>
 					<Heading fontSize='2xl'>Обоснование выбора</Heading>
 					<Text pl={4}>{justification}</Text>
