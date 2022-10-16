@@ -11,7 +11,7 @@ const InfoSection: FC<InfoStructure> = ({title, info, type}) => {
 			case 'array':
 				return (
 					<Stack>
-						{info.map(item => <Tag>{item}</Tag>)}
+						{info.map(item => <Tag key={item}>{item}</Tag>)}
 					</Stack>
 				)
 			case 'condition':
@@ -68,7 +68,7 @@ export const PCard: FC<PCardProps> = () => {
 			<Stack spacing={4}>
 				<Stack>
 					<Heading fontSize='2xl'>Обоснование выбора</Heading>
-					{justification.map(item => <Text pl={4}>{item}</Text>)}
+					{justification.map(item => <Text key={item} pl={4}>{item}</Text>)}
 				</Stack>
 
 				<Stack>

@@ -19,7 +19,7 @@ export const Dashboard: FC<DashboardProps> = () => {
 
 			<TabPanels pt={4}>
 				{projects.map(project => (
-					<Stack as={TabPanel} dir='column' spacing={6}>
+					<Stack key={project.name} as={TabPanel} dir='column' spacing={6}>
 						{project.projects.map(project => (
 							<Project key={project.name} data={project}/>
 						))}

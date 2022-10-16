@@ -37,7 +37,7 @@ export const PHeader = () => {
 
 				<Stack>
 					{methodologyOwner.map(name => (
-						<Tooltip label='Методолог'>
+						<Tooltip key={name} label='Методолог'>
 							<Tag>
 								<TagLeftIcon as={BiCodeAlt}/>
 								<TagLabel>{name}</TagLabel>
