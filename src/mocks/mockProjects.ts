@@ -74,7 +74,17 @@ export const mockProjects: IMockProject[] = [
 					units: 'дни',
 					initialValue: 35,
 					aimedValue: 17,
-					data: []
+					data: [
+						{x: new Date('2022-01-27'), y: 35},
+						{x: new Date('2022-02-14'), y: 8},
+						{x: new Date('2022-02-27'), y: 5},
+						{x: new Date('2022-03-6'), y: 22},
+						{x: new Date('2022-03-30'), y: 28},
+						{x: new Date('2022-04-15'), y: 25},
+						{x: new Date('2022-05-01'), y: 30},
+						{x: new Date('2022-05-15'), y: 25},
+						{x: new Date('2022-05-31'), y: 17},
+					]
 				},
 
 				// Обоснование выбора
