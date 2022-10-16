@@ -1,16 +1,22 @@
 import {FC} from 'react'
 
 import {PKPIProps} from './PKPI-props'
-import {Grid} from '@chakra-ui/react'
+import {Box, SimpleGrid} from '@chakra-ui/react'
 import {useProject} from '../../Project'
 import {VictoryKPI} from '../../../VictoryKPI'
+import {ChartJSKPI} from '../../../ChartJSKPI'
 
 
 export const PKPI: FC<PKPIProps> = () => {
 	const {plannedEffect: {data}} = useProject()
 	return (
-		<Grid w='800px'>
-			<VictoryKPI data={data}/>
-		</Grid>
+		<SimpleGrid columns={2}>
+			<Box h='500px'>
+				<VictoryKPI data={data}/>
+			</Box>
+			<Box h='500px'>
+				<ChartJSKPI data={data}/>
+			</Box>
+		</SimpleGrid>
 	)
 }
