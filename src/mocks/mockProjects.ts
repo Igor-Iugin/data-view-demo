@@ -100,7 +100,7 @@ export const mockProjects: IMockProject[] = [
 						end: new Date('2022-03-21'),
 						type: 'task',
 						progress: 80,
-						hideChildren: false
+						hideChildren: true
 					},
 					{
 						id: '3',

@@ -78,15 +78,19 @@ export const PCard: FC<PCardProps> = () => {
 
 				<Stack>
 					<Heading fontSize='2xl'>Ключевые события</Heading>
-					{tasks.map(({name, start, end}) => (
-						<Grid pl={4} gap={1} key={`${start}${end}`}>
-							{name}
-							<Flex pl={2} gap={2}>
-								<Tag>{start.toLocaleDateString()}</Tag>
-								<Tag>{end.toLocaleDateString()}</Tag>
-							</Flex>
-						</Grid>
-					))}
+					{tasks.map((task) => {
+						const {name, start, end} = task
+						if (task.dependencies) return null
+						return (
+							<Grid pl={4} gap={1} key={`${start}${end}`}>
+								{name}
+								<Flex pl={2} gap={2}>
+									<Tag>{start.toLocaleDateString()}</Tag>
+									<Tag>{end.toLocaleDateString()}</Tag>
+								</Flex>
+							</Grid>
+						)
+					})}
 				</Stack>
 			</Stack>
 
