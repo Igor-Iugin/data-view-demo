@@ -9,10 +9,11 @@ const SectionBlock: FC<{children: ReactNode}> = ({children}) => {
 	const {colorMode} = useColorMode()
 	const bdColor = colorMode === 'light' ? 'blackAlpha.100' : 'whiteAlpha.300'
 	return (
-	<Stack p={3} spacing={5} borderRadius='md' border='1px solid' borderColor={bdColor}>
-		{children}
-	</Stack>
-)}
+		<Stack p={3} spacing={4} borderRadius='md' border='1px solid' borderColor={bdColor}>
+			{children}
+		</Stack>
+	)
+}
 
 const InfoSection: FC<InfoStructure> = ({title, info, type}) => {
 	const Content = () => {
@@ -81,7 +82,9 @@ export const PCard: FC<PCardProps> = () => {
 			<Info/>
 			<SectionBlock>
 				<Heading fontSize='2xl'>2. Обоснование выбора</Heading>
-				{justification.map(item => <Text key={item} pl={4}>{item}</Text>)}
+				<Stack pl={4}>
+					{justification.map(item => <Text key={item}>{item}</Text>)}
+				</Stack>
 			</SectionBlock>
 
 			<SectionBlock>
