@@ -1,4 +1,16 @@
-import {Flex, Grid, Heading, HStack, IconButton, Stack, Tag, TagLabel, TagLeftIcon, Tooltip} from '@chakra-ui/react'
+import {
+	Flex,
+	Grid,
+	Heading,
+	HStack,
+	IconButton,
+	Link,
+	Stack,
+	Tag,
+	TagLabel,
+	TagLeftIcon,
+	Tooltip
+} from '@chakra-ui/react'
 import {MdApartment, MdBusinessCenter} from 'react-icons/md'
 import {BiCodeAlt} from 'react-icons/bi'
 import {useProject} from '../Project'
@@ -11,7 +23,7 @@ export const PHeader = () => {
 		<Flex justifyContent='space-between' alignItems='start' wrap={'wrap'}>
 			<Grid gap={2} alignItems='center'>
 				<HStack>
-					<Heading size='md'>{name}</Heading>
+					<Heading as={Link} size='md' onClick={() => onOpen(true)}>{name}</Heading>
 					<IconButton
 						icon={<EditIcon/>}
 						onClick={() => onOpen(true)}
