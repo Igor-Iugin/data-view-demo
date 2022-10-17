@@ -23,6 +23,7 @@ export const PHeader = () => {
 		<Flex justifyContent='space-between' alignItems='start' wrap={'wrap'}>
 			<Grid gap={2} alignItems='center'>
 				<HStack>
+
 					<Heading as={Link} size='md' onClick={() => onOpen(true)}>{name}</Heading>
 					<IconButton
 						icon={<EditIcon/>}

@@ -4,3 +4,13 @@ export interface ChartJSKPIProps {
 		y: number
 	}[]
 }
+
+export interface ChartJSBarKPIProps {
+	data: {
+		name: string
+		units: string
+		data: {
+			y: number
+		}[]
+	}
+}
