@@ -1,9 +1,18 @@
-import {FC, useMemo} from 'react'
+import {FC, ReactNode, useMemo} from 'react'
 
 import {InfoStructure, PCardProps} from './PCard-props'
-import {Flex, Heading, HStack, SimpleGrid, Stack, Tag, Text} from '@chakra-ui/react'
+import {Flex, Heading, HStack, SimpleGrid, Stack, Tag, Text, useColorMode} from '@chakra-ui/react'
 import {useProject} from '../../Project'
 
+
+const SectionBlock: FC<{children: ReactNode}> = ({children}) => {
+	const {colorMode} = useColorMode()
+	const bdColor = colorMode === 'light' ? 'blackAlpha.100' : 'whiteAlpha.300'
+	return (
+	<Stack p={3} spacing={5} borderRadius='md' border='1px solid' borderColor={bdColor}>
+		{children}
+	</Stack>
+)}
 
 const InfoSection: FC<InfoStructure> = ({title, info, type}) => {
 	const Content = () => {
@@ -53,7 +62,7 @@ const Info = () => {
 	], [client, company, conditions, director, methodologyOwner, owner, team, zone])
 
 	return (
-		<Stack spacing={5}>
+		<SectionBlock>
 			<Heading fontSize='2xl'>1. Общая информация</Heading>
 
 			<Stack direction='column' spacing={4} pl={4}>
@@ -61,7 +70,7 @@ const Info = () => {
 					<InfoSection key={item.title} {...item}/>
 				))}
 			</Stack>
-		</Stack>
+		</SectionBlock>
 	)
 }
 
@@ -70,17 +79,17 @@ export const PCard: FC<PCardProps> = () => {
 	return (
 		<SimpleGrid as='section' columns={2} row={2} gap={7}>
 			<Info/>
-			<Stack>
-				<Heading fontSize='2xl'>Обоснование выбора</Heading>
+			<SectionBlock>
+				<Heading fontSize='2xl'>2. Обоснование выбора</Heading>
 				{justification.map(item => <Text key={item} pl={4}>{item}</Text>)}
-			</Stack>
+			</SectionBlock>
 
-			<Stack>
-				<Heading fontSize='2xl'>Цели и плановый эффект</Heading>
+			<SectionBlock>
+				<Heading fontSize='2xl'>3. Цели и плановый эффект</Heading>
 				<Text pl={4}>{goals}</Text>
-			</Stack>
+			</SectionBlock>
 
-			<Stack>
+			<SectionBlock>
 				<Heading fontSize='2xl'>4. Ключевые события</Heading>
 				{tasks.map((task) => {
 					const {name, start, end} = task
@@ -95,7 +104,7 @@ export const PCard: FC<PCardProps> = () => {
 						</Flex>
 					)
 				})}
-			</Stack>
+			</SectionBlock>
 		</SimpleGrid>
 	)
 }
