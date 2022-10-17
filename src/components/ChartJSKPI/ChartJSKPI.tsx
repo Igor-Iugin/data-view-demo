@@ -1,15 +1,6 @@
-import {FC} from 'react'
-import {
-	CategoryScale,
-	Chart as ChartJS,
-	Legend,
-	LinearScale,
-	LineElement,
-	PointElement,
-	Title,
-	Tooltip,
-} from 'chart.js'
-import {Line} from 'react-chartjs-2'
+import {FC, useEffect, useRef} from 'react'
+import {Chart as ChartJS, ChartOptions, registerables} from 'chart.js'
+import {Chart} from 'react-chartjs-2'
 
 import {ChartJSKPIProps} from './ChartJSKPI-props'
 
@@ -29,30 +20,31 @@ const monthNames = [
 	'Декабрь'
 ]
 
-ChartJS.register(
-	CategoryScale,
-	LinearScale,
-	PointElement,
-	LineElement,
-	Title,
-	Tooltip,
-	Legend
-)
-
-const options = {
+ChartJS.register(...registerables)
+const options: ChartOptions<'line'> = {
 	responsive: true,
+	locale: 'ru-RU'
 }
 
 export const ChartJSKPI: FC<ChartJSKPIProps> = ({data}) => {
+	const chartRef = useRef<any>(null!)
 	const newData = {
 		labels: monthNames,
 		datasets: [{
-			label: 'Статистика',
-			data: data
+			label: 'Время, затраченное на предоставление услуги',
+			data: data,
+			borderColor: 'rgb(53, 162, 235)',
+			backgroundColor: 'rgba(53, 162, 235, 0.5)',
 		}]
 	}
 
+	useEffect(() => {
+		return () => {
+			chartRef.current = null
+		}
+	}, [])
+
 	return (
-		<Line options={options} data={newData}/>
+		<Chart type='line' ref={chartRef} options={options} data={newData}/>
 	)
 }

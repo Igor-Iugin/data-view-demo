@@ -1,6 +1,6 @@
 export interface ChartJSKPIProps {
 	data: {
-		x: Date
+		x: number | Date | string
 		y: number
 	}[]
 }
