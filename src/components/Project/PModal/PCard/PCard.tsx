@@ -1,7 +1,7 @@
 import {FC, useMemo} from 'react'
 
 import {InfoStructure, PCardProps} from './PCard-props'
-import {Flex, Grid, Heading, SimpleGrid, Stack, Tag, Text} from '@chakra-ui/react'
+import {Flex, Grid, Heading, HStack, SimpleGrid, Stack, Tag, Text} from '@chakra-ui/react'
 import {useProject} from '../../Project'
 
 
@@ -10,28 +10,32 @@ const InfoSection: FC<InfoStructure> = ({title, info, type}) => {
 		switch (type) {
 			case 'array':
 				return (
-					<Stack>
-						{info.map(item => <Tag key={item}>{item}</Tag>)}
-					</Stack>
+					<Flex flexWrap='wrap' gap={3}>
+						{info.map(item => <Tag key={item} w='max-content' whiteSpace='normal'>{item}</Tag>)}
+					</Flex>
 				)
 			case 'condition':
 				return (
-					<Grid gap={2}>
-						<p><Tag size='sm'>С</Tag> {info.from}</p>
-						<p><Tag>ДО</Tag> {info.to}</p>
-					</Grid>
+					<Flex alignItems='center' flexWrap='wrap' gap={1}>
+						<Text display='flex' gap={1}>
+							<Tag size='sm' w='34px'>ОТ</Tag> {info.from}
+						</Text>
+						<Text display='flex' gap={1}>
+							<Tag size='sm' w='34px'>ДО</Tag> {info.to}
+						</Text>
+					</Flex>
 				)
 			case 'text':
 				return (
-					<Text pl={4}>{info}</Text>
+					<Text>{info}</Text>
 				)
 		}
 	}
 	return (
-		<Stack direction='column'>
-			<Heading as='h3' fontSize='lg'>{title}</Heading>
+		<HStack alignItems='start'>
+			<Heading as='h3' fontSize='lg' whiteSpace='nowrap' mb={2}>{title}:</Heading>
 			<Content/>
-		</Stack>
+		</HStack>
 	)
 }
 
@@ -49,10 +53,10 @@ const Info = () => {
 	], [client, company, conditions, director, methodologyOwner, owner, team, zone])
 
 	return (
-		<Stack direction='column' spacing={5}>
-			<Heading fontSize='2xl'>Общая информация</Heading>
+		<Stack spacing={5}>
+			<Heading fontSize='2xl'>1. Общая информация</Heading>
 
-			<Stack direction='column' spacing={4}>
+			<Stack direction='column' spacing={4} pl={4}>
 				{structure.map(item => (
 					<InfoSection key={item.title} {...item}/>
 				))}
@@ -64,37 +68,34 @@ const Info = () => {
 export const PCard: FC<PCardProps> = () => {
 	const {goals, justification, tasks} = useProject()
 	return (
-		<SimpleGrid as='section' columns={2}>
-			<Stack spacing={4}>
-				<Stack>
-					<Heading fontSize='2xl'>Обоснование выбора</Heading>
-					{justification.map(item => <Text key={item} pl={4}>{item}</Text>)}
-				</Stack>
-
-				<Stack>
-					<Heading fontSize='2xl'>Цели и плановый эффект</Heading>
-					<Text pl={4}>{goals}</Text>
-				</Stack>
-
-				<Stack>
-					<Heading fontSize='2xl'>Ключевые события</Heading>
-					{tasks.map((task) => {
-						const {name, start, end} = task
-						if (task.dependencies) return null
-						return (
-							<Grid pl={4} gap={1} key={`${start}${end}`}>
-								{name}
-								<Flex pl={2} gap={2}>
-									<Tag>{start.toLocaleDateString()}</Tag>
-									<Tag>{end.toLocaleDateString()}</Tag>
-								</Flex>
-							</Grid>
-						)
-					})}
-				</Stack>
+		<SimpleGrid as='section' columns={2} row={2} gap={7}>
+			<Info/>
+			<Stack>
+				<Heading fontSize='2xl'>2. Обоснование выбора</Heading>
+				{justification.map(item => <Text key={item} pl={4}>{item}</Text>)}
 			</Stack>
 
-			<Info/>
+			<Stack>
+				<Heading fontSize='2xl'>3. Цели и плановый эффект</Heading>
+				<Text pl={4}>{goals}</Text>
+			</Stack>
+
+			<Stack>
+				<Heading fontSize='2xl'>4. Ключевые события</Heading>
+				{tasks.map((task) => {
+					const {name, start, end} = task
+					if (task.dependencies) return null
+					return (
+						<Grid pl={4} gap={1} key={`${start}${end}`}>
+							{name}
+							<Flex pl={2} gap={2}>
+								<Tag>{start.toLocaleDateString()}</Tag>
+								<Tag>{end.toLocaleDateString()}</Tag>
+							</Flex>
+						</Grid>
+					)
+				})}
+			</Stack>
 		</SimpleGrid>
 	)
 }
