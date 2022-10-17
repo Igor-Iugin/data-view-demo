@@ -30,7 +30,14 @@ export const PHeader = () => {
 						aria-label='Открыть карту проекта'
 					/>
 				</HStack>
-				<Tag variant='outline' colorScheme='cyan' borderRadius='full' w='max-content'>{status}</Tag>
+				<Tag
+					variant='outline'
+					colorScheme={status === 'В работе' ? 'cyan' : 'whatsapp'}
+					borderRadius='full'
+					w='max-content'
+				>
+					{status}
+				</Tag>
 			</Grid>
 			<HStack alignItems='start'>
 				<Tooltip label='Заказчик'>
