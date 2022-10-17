@@ -15,6 +15,7 @@ import {MdApartment, MdBusinessCenter} from 'react-icons/md'
 import {BiCodeAlt} from 'react-icons/bi'
 import {useProject} from '../Project'
 import {EditIcon} from '@chakra-ui/icons'
+import {PStatus} from './PStatus'
 
 
 export const PHeader = () => {
@@ -23,7 +24,7 @@ export const PHeader = () => {
 		<Flex justifyContent='space-between' alignItems='start' wrap={'wrap'}>
 			<Grid gap={2} alignItems='center'>
 				<HStack>
-
+					<PStatus/>
 					<Heading as={Link} size='md' onClick={() => onOpen(true)}>{name}</Heading>
 					<IconButton
 						icon={<EditIcon/>}
