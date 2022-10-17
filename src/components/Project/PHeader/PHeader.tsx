@@ -9,7 +9,7 @@ import {
 	Tag,
 	TagLabel,
 	TagLeftIcon,
-	Tooltip
+	Tooltip, useMediaQuery
 } from '@chakra-ui/react'
 import {MdApartment, MdBusinessCenter} from 'react-icons/md'
 import {BiCodeAlt} from 'react-icons/bi'
@@ -20,8 +20,9 @@ import {PStatus} from './PStatus'
 
 export const PHeader = () => {
 	const {name, status, client, company, methodologyOwner, onOpen} = useProject()
+	const [isSmallerThanN] = useMediaQuery('(max-width: 1500px)')
 	return (
-		<Flex justifyContent='space-between' alignItems='start' wrap={'wrap'}>
+		<Flex justifyContent='space-between' alignItems='start' wrap={'wrap'} gap={3}>
 			<Grid gap={2} alignItems='center'>
 				<HStack>
 					<PStatus/>
@@ -56,7 +57,7 @@ export const PHeader = () => {
 					</Tag>
 				</Tooltip>
 
-				<Stack>
+				<Stack direction={isSmallerThanN ? 'row' : 'column'}>
 					{methodologyOwner.map(name => (
 						<Tooltip key={name} label='Методолог'>
 							<Tag>
