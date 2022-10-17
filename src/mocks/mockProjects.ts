@@ -106,8 +106,8 @@ export const mockProjects: IMockProject[] = [
 					{
 						id: '2',
 						name: 'Диагностика и целевое состояние',
-						start: new Date('2022-01-10'),
-						end: new Date('2022-03-21'),
+						start: new Date('2021-12-24'),
+						end: new Date('2022-03-10'),
 						type: 'task',
 						progress: 80,
 						hideChildren: true
@@ -115,8 +115,8 @@ export const mockProjects: IMockProject[] = [
 					{
 						id: '3',
 						name: 'Внедрение улучшений',
-						start: new Date('2022-03-21'),
-						end: new Date('2022-12-19'),
+						start: new Date('2022-02-25'),
+						end: new Date('2022-03-10'),
 						type: 'task',
 						progress: 60,
 						dependencies: ['2']
@@ -124,8 +124,8 @@ export const mockProjects: IMockProject[] = [
 					{
 						id: '4',
 						name: 'Закрепление результатов и закрытие проекта',
-						start: new Date('2022-12-19'),
-						end: new Date('2022-12-30'),
+						start: new Date('2022-03-10'),
+						end: new Date('2022-05-10'),
 						type: 'task',
 						progress: 30
 					},
@@ -204,8 +204,8 @@ export const mockProjects: IMockProject[] = [
 					{
 						id: '2',
 						name: 'Подготовка карты текущего состояния',
-						start: new Date('2022-01-14'),
-						end: new Date('2022-01-22'),
+						start: new Date('2022-01-20'),
+						end: new Date('2022-03-22'),
 						type: 'task',
 						progress: 100,
 						hideChildren: true
@@ -213,7 +213,7 @@ export const mockProjects: IMockProject[] = [
 					{
 						id: '3',
 						name: 'Подготовка карты идеального и целевого состояния',
-						start: new Date('2022-01-19'),
+						start: new Date('2022-03-22'),
 						end: new Date('2022-05-26'),
 						type: 'task',
 						progress: 100,
@@ -222,8 +222,8 @@ export const mockProjects: IMockProject[] = [
 					{
 						id: '4',
 						name: 'Проработка плана',
-						start: new Date('2022-01-27'),
-						end: new Date('2022-02-10'),
+						start: new Date('2022-05-26'),
+						end: new Date('2022-06-17'),
 						type: 'task',
 						progress: 100,
 						hideChildren: true
@@ -231,8 +231,8 @@ export const mockProjects: IMockProject[] = [
 					{
 						id: '5',
 						name: 'Проведение Kick - off',
-						start: new Date('2022-02-10'),
-						end: new Date('2022-02-14'),
+						start: new Date('2022-06-17'),
+						end: new Date('2022-06-21'),
 						type: 'task',
 						progress: 100,
 						dependencies: ['4']
@@ -240,8 +240,8 @@ export const mockProjects: IMockProject[] = [
 					{
 						id: '6',
 						name: 'Внедрение мероприятий',
-						start: new Date('2022-02-15'),
-						end: new Date('2022-05-25'),
+						start: new Date('2022-06-21'),
+						end: new Date('2022-07-30'),
 						type: 'task',
 						progress: 100,
 						dependencies: ['4']
@@ -249,8 +249,8 @@ export const mockProjects: IMockProject[] = [
 					{
 						id: '7',
 						name: 'Оценка внедряемых решений',
-						start: new Date('2022-03-30'),
-						end: new Date('2022-05-22'),
+						start: new Date('2022-07-30'),
+						end: new Date('2022-09-30'),
 						type: 'task',
 						progress: 100
 					},
