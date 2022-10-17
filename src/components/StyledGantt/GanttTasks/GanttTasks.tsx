@@ -32,6 +32,7 @@ export const GanttTasks: FC<GanttTasksProps> = ({tasks, rowHeight, onExpanderCli
 						borderColor={bdColor}
 						borderBottomLeftRadius={index === tasks.length - 1 ? 'md' : ''}
 						p={2}
+						pl={task.dependencies ? 8 : 2}
 						key={`task${task.id}`}
 						onClick={() => onExpanderClick(task)}
 						gap={2}
