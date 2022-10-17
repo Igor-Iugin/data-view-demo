@@ -1,15 +1,33 @@
-import {FC, ReactNode, useMemo} from 'react'
+import {FC, useMemo} from 'react'
 
 import {InfoStructure, PCardProps} from './PCard-props'
-import {Flex, Heading, HStack, SimpleGrid, Stack, Tag, Text, useColorMode} from '@chakra-ui/react'
+import {
+	Center,
+	Flex,
+	Heading,
+	HStack,
+	SimpleGrid,
+	Stack,
+	StackProps,
+	Table,
+	TableContainer,
+	Tag,
+	Tbody,
+	Td,
+	Text,
+	Th,
+	Thead,
+	Tr,
+	useColorMode
+} from '@chakra-ui/react'
 import {useProject} from '../../Project'
 
 
-const SectionBlock: FC<{children: ReactNode}> = ({children}) => {
+const SectionBlock: FC<StackProps> = ({children, ...props}) => {
 	const {colorMode} = useColorMode()
 	const bdColor = colorMode === 'light' ? 'blackAlpha.100' : 'whiteAlpha.300'
 	return (
-		<Stack p={3} spacing={4} borderRadius='md' border='1px solid' borderColor={bdColor}>
+		<Stack p={3} spacing={4} borderRadius='md' border='1px solid' borderColor={bdColor} {...props}>
 			{children}
 		</Stack>
 	)
@@ -76,7 +94,9 @@ const Info = () => {
 }
 
 export const PCard: FC<PCardProps> = () => {
-	const {goals, justification, tasks} = useProject()
+	const {goals, justification, tasks, plannedEffect} = useProject()
+	const {colorMode} = useColorMode()
+	const bdColor = colorMode === 'light' ? 'blackAlpha.100' : 'whiteAlpha.300'
 	return (
 		<SimpleGrid as='section' columns={2} row={2} gap={7}>
 			<Info/>
@@ -87,9 +107,29 @@ export const PCard: FC<PCardProps> = () => {
 				</Stack>
 			</SectionBlock>
 
-			<SectionBlock>
+			<SectionBlock justifyContent='space-between'>
 				<Heading fontSize='2xl'>3. Цели и плановый эффект</Heading>
 				<Text pl={4}>{goals}</Text>
+				<TableContainer border='1px' borderColor={bdColor} borderRadius='xl'>
+					<Table>
+						<Thead>
+							<Tr>
+								<Th>Наименование цели</Th>
+								<Center as={Th}>ЕИ</Center>
+								<Th isNumeric>Исходное значение</Th>
+								<Th isNumeric>Целевой показатель</Th>
+							</Tr>
+						</Thead>
+						<Tbody>
+							<Tr>
+								<Td>{plannedEffect.name}</Td>
+								<Td>{plannedEffect.units}</Td>
+								<Td isNumeric>{plannedEffect.initialValue}</Td>
+								<Td isNumeric>{plannedEffect.aimedValue}</Td>
+							</Tr>
+						</Tbody>
+					</Table>
+				</TableContainer>
 			</SectionBlock>
 
 			<SectionBlock>
