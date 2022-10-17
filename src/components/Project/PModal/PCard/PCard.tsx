@@ -68,17 +68,17 @@ const Info = () => {
 export const PCard: FC<PCardProps> = () => {
 	const {goals, justification, tasks} = useProject()
 	return (
-		<SimpleGrid as='section' columns={2} row={2} gap={7}>
-			<Info/>
-			<Stack>
-				<Heading fontSize='2xl'>2. Обоснование выбора</Heading>
-				{justification.map(item => <Text key={item} pl={4}>{item}</Text>)}
-			</Stack>
+		<SimpleGrid as='section' columns={2}>
+			<Stack spacing={4}>
+				<Stack>
+					<Heading fontSize='2xl'>Обоснование выбора</Heading>
+					{justification.map(item => <Text key={item} pl={4}>{item}</Text>)}
+				</Stack>
 
-			<Stack>
-				<Heading fontSize='2xl'>3. Цели и плановый эффект</Heading>
-				<Text pl={4}>{goals}</Text>
-			</Stack>
+				<Stack>
+					<Heading fontSize='2xl'>Цели и плановый эффект</Heading>
+					<Text pl={4}>{goals}</Text>
+				</Stack>
 
 			<Stack>
 				<Heading fontSize='2xl'>4. Ключевые события</Heading>
@@ -96,6 +96,8 @@ export const PCard: FC<PCardProps> = () => {
 					)
 				})}
 			</Stack>
+
+			<Info/>
 		</SimpleGrid>
 	)
 }
