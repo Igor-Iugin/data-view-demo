@@ -37,18 +37,6 @@ export const GanttTasks: FC<GanttTasksProps> = ({tasks, rowHeight, onExpanderCli
 						key={`task${task.id}`}
 						onClick={() => onExpanderClick(task)}
 						gap={2}
-						sx={{
-							'&:before': {
-								'content': '""',
-								'position': 'absolute',
-								'top': 0,
-								'left': 0,
-								'right': 0,
-								'bottom': 0,
-								'background': task.styles?.progressColor,
-								'opacity': .2
-							}
-						}}
 					>
 						{getExpanderIcon(task)}
 						{task.name}
