@@ -7,6 +7,7 @@ import {PHeader} from './PHeader'
 import {StyledGantt} from '../'
 import {PModal} from './PModal'
 import {Task} from 'gantt-task-react'
+import {getTaskColor} from '../StyledGantt/utils/getTaskColor'
 
 
 const ProjectContext = createContext<IProject & {
@@ -14,8 +15,9 @@ const ProjectContext = createContext<IProject & {
 	setTasks: Dispatch<SetStateAction<Task[]>>
 }>(null!)
 
+
 export const Project: FC<ProjectProps> = ({data}) => {
-	const [tasks, setTasks] = useState<Task[]>(data.tasks)
+	const [tasks, setTasks] = useState<Task[]>(data.tasks.map(task => getTaskColor(task)))
 	const {isOpen, onOpen, onClose} = useDisclosure()
 	const {colorMode} = useColorMode()
 	const bdColor = colorMode === 'light' ? 'blackAlpha.100' : 'whiteAlpha.300'

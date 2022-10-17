@@ -53,7 +53,7 @@ export const StyledGantt: FC<StyledGanttProps> = ({tasks, viewMode = ViewMode.Mo
 			listCellWidth={'100px'}
 			fontFamily='inherit'
 			locale='ru-RU'
-			todayColor='rgba(0,0,0, .15)'
+			todayColor='rgba(0, 0, 0, .15)'
 			timeStep={timeStep ? timeStepCalc(timeStep) : timeStepCalc(ViewMode.Day)}
 			TaskListHeader={props => <GanttHeader {...props}/>}
 			TaskListTable={props => <GanttTasks {...props}/>}

@@ -5,6 +5,7 @@ import {StyledGantt} from '../../../'
 import {useProject} from '../../Project'
 import {Task, ViewMode} from 'gantt-task-react'
 import {Center} from '@chakra-ui/react'
+import {getTaskColor} from '../../../StyledGantt/utils/getTaskColor'
 
 
 function getStartEndDateForProject(tasks: Task[], projectId: string) {
@@ -27,15 +28,16 @@ function getStartEndDateForProject(tasks: Task[], projectId: string) {
 export const PPlan: FC<PPlanProps> = () => {
 	const {tasks, setTasks} = useProject()
 	const handleTaskChange = (task: Task) => {
-		let newTasks = tasks.map(t => (t.id === task.id ? task : t))
+		let newTasks = tasks.map(t => (t.id === task.id ? getTaskColor(task) : t))
 		if (task.project) {
 			const [start, end] = getStartEndDateForProject(newTasks, task.project)
 			const project = newTasks[newTasks.findIndex(t => t.id === task.project)]
+			const styles = getTaskColor(task).styles
 			if (
 				project.start.getTime() !== start.getTime() ||
 				project.end.getTime() !== end.getTime()
 			) {
-				const changedProject = {...project, start, end}
+				const changedProject = {...project, start, end, styles}
 				newTasks = newTasks.map(t =>
 					t.id === task.project ? changedProject : t
 				)
@@ -53,7 +55,11 @@ export const PPlan: FC<PPlanProps> = () => {
 	}
 
 	const handleProgressChange = async (task: Task) => {
-		setTasks(tasks.map(t => (t.id === task.id ? task : t)))
+		setTasks(tasks.map(t => (
+			t.id === task.id
+				? getTaskColor(task)
+				: t
+		)))
 	}
 
 	const handleExpanderClick = (task: Task) => {

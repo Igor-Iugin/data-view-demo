@@ -28,6 +28,7 @@ export const GanttTasks: FC<GanttTasksProps> = ({tasks, rowHeight, onExpanderCli
 						h={rowHeight}
 						w='300px'
 						alignItems='center'
+						pos='relative'
 						border='1px solid'
 						borderColor={bdColor}
 						borderBottomLeftRadius={index === tasks.length - 1 ? 'md' : ''}
@@ -36,6 +37,18 @@ export const GanttTasks: FC<GanttTasksProps> = ({tasks, rowHeight, onExpanderCli
 						key={`task${task.id}`}
 						onClick={() => onExpanderClick(task)}
 						gap={2}
+						sx={{
+							'&:before': {
+								'content': '""',
+								'position': 'absolute',
+								'top': 0,
+								'left': 0,
+								'right': 0,
+								'bottom': 0,
+								'background': task.styles?.progressColor,
+								'opacity': .2
+							}
+						}}
 					>
 						{getExpanderIcon(task)}
 						{task.name}
